@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
+  styleUrls: ['./admin.component.css'],
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('slideInOut', [
@@ -67,6 +67,10 @@ export class AdminComponent implements OnInit {
 
   config: any;
 
+  isNavbarVisible: boolean = true;
+  isSideMenuVisible: boolean = true;
+  
+
   constructor(
     public menuItems: MenuItems,
     private api: ApisService,
@@ -80,13 +84,70 @@ export class AdminComponent implements OnInit {
     this.translate.use(localStorage.getItem('lng'));
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log('Ruta actual:', this.router.url);
+  }
 
   onClickedOutside(e: Event) {
     if (this.windowWidth < 768 && this.toggleOn && this.verticalNavType !== 'offcanvas') {
       this.toggleOn = true;
       this.verticalNavType = 'offcanvas';
     }
+  }
+
+  redirectToHome(): void {
+    this.router.navigate(['/admin-dashboard']);
+  }
+
+  redirectToCity(): void{
+    this.router.navigate(['/admin-cities']);
+  }
+
+  redirectToRestaurants(): void{
+    this.router.navigate(['/admin-restaurants']);
+  }
+
+  redirectToUsers(): void{
+    this.router.navigate(['/admin-users']);
+  }
+
+  redirectToDrivers(): void{
+    this.router.navigate(['/admin-drivers']);
+  }
+
+  redirectToOrders(): void{
+    this.router.navigate(['/admin-orders']);
+  }
+
+  redirectToBanners(): void{
+    this.router.navigate(['/admin-banners']);
+  }
+
+  redirectToCoupons(): void{
+    this.router.navigate(['/admin-coupons']);
+  }
+
+  redirectToNotifications(): void{
+    this.router.navigate(['/admin-notification']);
+  }
+
+  redirectToChats(): void{
+    this.router.navigate(['/admin-chats']);
+  }
+
+  redirectToStats(): void{
+    this.router.navigate(['/admin-rest-stats']);
+  }
+
+
+  isActive(url: string): boolean {
+    console.log('Valor de la variable url pasada al método:', url); // Imprimir el valor de url
+    const isActiveRoute = this.router.url === url;
+    
+    // Imprimir el resultado de la verificación
+    console.log(`Verificando si la ruta actual (${this.router.url}) es igual a ${url}:`, isActiveRoute);
+    
+    return isActiveRoute;
   }
 
   changeLng(lng) {
@@ -157,6 +218,8 @@ export class AdminComponent implements OnInit {
       this.verticalNavType = this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
     } else {
       this.verticalNavType = this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
+      this.isNavbarVisible = !this.isNavbarVisible;
+      this.isSideMenuVisible = !this.isSideMenuVisible;
     }
   }
   onMobileMenu() {

@@ -7,7 +7,7 @@ import { NavigationExtras, Router } from '@angular/router';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [
-    './dashboard.component.scss'
+    './dashboard.component.css'
   ],
   encapsulation: ViewEncapsulation.None
 })
